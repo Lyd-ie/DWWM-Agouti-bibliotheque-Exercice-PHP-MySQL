@@ -103,10 +103,11 @@ if (TRUE === isset($_POST['signup'])) {
 						<input type="tel" name="mobilenumber" required>
 					</div>
                     
-<!-- On appelle la fonction checkAvailability() dans la balise <input> de l'email onBlur="checkAvailability(this.value)" -->
+                    <!-- On appelle la fonction checkAvailability() dans la balise <input> de l'email onBlur="checkAvailability(this.value)" -->
                     <div class="form-group">
 						<label>Email :</label>
 						<input type="email" name="emailid" onBlur="checkAvailability(emailid.value)" required>
+                        <span id="emailCheck"></span>
 					</div>
 
 					<div class="form-group">
@@ -158,27 +159,38 @@ if (TRUE === isset($_POST['signup'])) {
             }
         })}
 
+        // On cree une fonction avec l'email passé en paramêtre et qui vérifie la disponibilité de l'email
+        // Cette fonction effectue un appel AJAX vers check_availability.php
         function checkAvailability(emailid) {
+            let emailCheck = document.getElementById("emailCheck");
+            let submitButton = document.querySelector("button[name='signup']");
 
             fetch("check_availability.php?email="+emailid)
             .then(response => response.json())
-            .then(data => { console.log(data) 
-
-            // console.log(response);})
-
-            if(data == "1") {
-                console.log("coucou");
-            }
-            else {
-                console.log("pas coucou");
-            }})
-            //     console.log(response);
-            //     console.log("check_availability.php?email=" + emailid);
-            // })
+            .then(data => { // console.log("data = " + data);
+            
+                switch(data) {
+                    case 1 : //email non valide
+                        emailCheck.innerHTML = "email non valide, veuillez corriger votre saisie";
+                        emailCheck.style.fontWeight = "800";
+                        emailCheck.style.color = "red";
+                        submitButton.disabled = true;
+                        break;
+                    case 2 : // email existe déjà dans la base de donnée
+                        emailCheck.innerHTML = "cet email possède déjà un compte";
+                        emailCheck.style.fontWeight = "800";
+                        emailCheck.style.color = "red";
+                        submitButton.disabled = true;
+                        break;
+                    case 3 : // email n'existe pas encore dans la base de donnée
+                        emailCheck.innerHTML = "";
+                        submitButton.disabled = false;
+                        break;
+                    default :
+                        break;
+                }
+            })
         }
-        // On cree une fonction avec l'email passé en paramêtre et qui vérifie la disponibilité de l'email
-        // Cette fonction effectue un appel AJAX vers check_availability.php
-
     </script> 
 </body>
 </html>

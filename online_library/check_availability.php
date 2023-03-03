@@ -3,43 +3,28 @@
 require_once("includes/config.php");
 
 // On recupere dans $_GET l email soumis par l'utilisateur
-// localhost/online_formapro/projet_agouti__online_library_pt1/online_library/check_availability.php?email=test@gmail.com
-$email = isset($_GET['email']) ? $_GET['email'] : '';
+$email = $_GET['email'];
 
-// echo "The email address is: " . $email;
 // On verifie que l'email est un email valide (fonction php filter_var)
-
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-	// echo("$email est une adresse email valide");
-	// echo "0 ";
-
+	// Si c'est bon
+	// On prepare la requete qui recherche la presence de l'email dans la table tblreaders
 	$sql = "SELECT * FROM tblreaders WHERE EmailId='".$email."'";
 	$query = $dbh->prepare($sql);
+	// On execute la requete et on stocke le resultat de recherche
 	$query->execute();
 	$result = $query->fetch();
 
 	if ($result) {
-		echo "1";
-		// echo "<script> 	console.log('Cet email existe déjà');
-		// 				button.disabled = true; </script>";
+		// Si le resultat n'est pas vide. On signale a l'utilisateur que cet email existe deja
+		echo "2"; // existe déjà
 	} else {
-		echo "2";
-		// echo "<script> 	console.log('Cet email n existe pas dans la base de donnée');
-		// 				button.disabled = false; </script>";
+		// Sinon on signale a l'utlisateur que l'email est disponible
+		echo "3"; // n'existe pas encore
 	}
 }
 else {
-	echo "3 ";
-	// echo "$email n'est pas une adresse email valide";
+	// Si l'email n'est pas valide, on fait un echo qui signale l'erreur
+	echo "1"; // non valide
 }
-
-		// Si ce n'est pas le cas, on fait un echo qui signale l'erreur
-		
-		// Si c'est bon
-		// On prepare la requete qui recherche la presence de l'email dans la table tblreaders
-		// On execute la requete et on stocke le resultat de recherche
-		
-		// Si le resultat n'est pas vide. On signale a l'utilisateur que cet email existe deja et on desactive le bouton
-		// de soumission du formulaire
-
-		// Sinon on signale a l'utlisateur que l'email est disponible et on active le bouton du formulaire
+?>
