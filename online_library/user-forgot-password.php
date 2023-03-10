@@ -39,7 +39,6 @@ include('includes/config.php');
      <script type="text/javascript">
           // On cree une fonction nommee valid() qui verifie que les deux mots de passe saisis par l'utilisateur sont identiques.
      </script>
-
 </head>
 
 <body>
@@ -47,7 +46,50 @@ include('includes/config.php');
      <?php include('includes/header.php'); ?>
      <!-- On insere le titre de la page (RECUPERATION MOT DE PASSE -->
 
-     <!--On insere le formulaire de recuperation-->
+     <div class="container">
+		<div class="row">
+			<div class="col">
+				<h3>RECUPERATION MOT DE PASSE</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8 offset-md-3">
+				<form method="post" action="user-forgot-password.php">
+                         <div class="form-group">
+                                   <label>Portable :</label>
+                                   <input type="tel" name="mobilenumber" required>
+                              </div>
+                         
+                         <!-- On appelle la fonction checkAvailability() dans la balise <input> de l'email onBlur="checkAvailability(this.value)" -->
+                         <div class="form-group">
+                                   <label>Email :</label>
+                                   <input type="email" name="emailid" onBlur="checkAvailability(emailid.value)" required>
+                         <span id="emailCheck"></span>
+                              </div>
+
+                              <div class="form-group">
+                                   <label>Mot de passe :</label>
+                                   <input type="password" name="password" required>
+                              </div>
+                    
+                         <div class="form-group">
+                                   <label id="mdp">Confirmez le mot de passe :</label>
+                                   <input type="password" name="pswdconfirm" required>
+                         <span id="pswdCheck"></span>
+                         </div>
+
+                              <!--A la suite de la zone de saisie du captcha, on insere l'image cree par captcha.php : <img src="captcha.php">  -->
+                              <div class="form-group">
+                                   <label>Code de vérification</label>
+                                   <input type="text" name="vercode" required style="height:25px;">&nbsp;&nbsp;&nbsp;<img src="captcha.php">
+                              </div>
+
+                              <button type="submit" name="signup" class="btn btn-info">ENREGISTRER</button>
+                         </div>
+				</form>
+			</div>
+		</div>
+	</div>
      <!--L'appel de la fonction valid() se fait dans la balise <form> au moyen de la propri�t� onSubmit="return valid();"-->
 
 
