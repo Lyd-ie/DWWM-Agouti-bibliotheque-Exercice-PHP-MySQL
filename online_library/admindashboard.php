@@ -8,9 +8,8 @@ include('includes/config.php');
 // Si l'utilisateur est déconnecté, l'utilisateur est renvoyé vers la page de login : adminlogin.php
 if(strlen($_SESSION['username'])==0) {
 	header('location:adminlogin.php');
-  
+
 } else {
-	
      // print_r($_SESSION);
 ?>
 
