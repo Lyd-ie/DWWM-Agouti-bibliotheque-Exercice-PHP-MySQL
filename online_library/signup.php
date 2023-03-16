@@ -92,7 +92,7 @@ if (TRUE === isset($_POST['signup'])) {
         <!--On affiche le formulaire de creation de compte-->
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8 offset-md-3">
-                <form method="post" action="signup.php">
+                <form method="post" action="signup.php" onSubmit="return valid()">
                     <div class="form-group">
                         <label>Entrez votre nom complet</label>
                         <input type="text" name="fullname" required>
@@ -124,7 +124,8 @@ if (TRUE === isset($_POST['signup'])) {
                     <!--A la suite de la zone de saisie du captcha, on insere l'image cree par captcha.php : <img src="captcha.php">  -->
                     <div class="form-group">
                         <label>Code de vérification</label>
-                        <input type="text" name="vercode" required style="height:25px;">&nbsp;&nbsp;&nbsp;<img src="captcha.php" alt="captcha">
+                        <input type="text" name="vercode" required style="height:25px;">&nbsp;&nbsp;&nbsp;
+                        <img src="captcha.php" alt="captcha">
                     </div>
 
                     <button type="submit" name="signup" class="btn btn-info">ENREGISTRER</button>

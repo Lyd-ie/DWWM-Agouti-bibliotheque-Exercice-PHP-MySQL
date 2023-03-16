@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 24 fév. 2023 à 08:40
--- Version du serveur :  8.0.21
--- Version de PHP : 7.4.9
+-- Généré le : jeu. 16 mars 2023 à 09:25
+-- Version du serveur : 8.0.31
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `tblbooks` (
 INSERT INTO `tblbooks` (`id`, `BookName`, `CatId`, `AuthorId`, `ISBNNumber`, `BookPrice`, `RegDate`, `UpdationDate`) VALUES
 (1, 'La jeune fille et la nuit', 4, 1, 222333, 21, '2017-07-08 20:04:55', '2021-08-06 15:37:08'),
 (3, 'Quelqu\'un de bien', 4, 4, 111123, 6, '2017-07-08 20:17:31', '2021-07-26 09:12:22'),
-(4, 'Test', 6, 2, 222333, 12, '2022-02-11 08:25:28', NULL);
+(4, 'Vingt Mille Lieues sous les Mers', 6, 2, 203735, 12, '2022-02-11 08:25:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `tblcategory` (
 --
 
 INSERT INTO `tblcategory` (`id`, `CategoryName`, `Status`, `CreationDate`, `UpdationDate`) VALUES
-(5, 'Technologie', 0, '2017-07-04 18:35:39', '2022-02-11 08:21:32'),
+(5, 'Technologie', 1, '2017-07-04 18:35:39', '2023-03-14 10:19:05'),
 (6, 'Science', 1, '2017-07-04 18:35:55', '2021-08-06 15:31:10'),
 (7, 'Management', 1, '2017-07-04 18:36:16', '2021-06-23 12:45:41');
 
@@ -159,13 +159,13 @@ INSERT INTO `tblissuedbookdetails` (`id`, `BookId`, `ReaderID`, `IssuesDate`, `R
 (8, 1, 'SID010', '2021-07-20 08:41:34', NULL, 0, NULL),
 (9, 3, 'SID012', '2021-07-20 08:44:53', NULL, 0, NULL),
 (10, 1, 'SID012', '2021-07-20 08:47:07', NULL, 0, NULL),
-(11, 222333, 'SID009', '2021-07-20 08:51:15', NULL, 0, NULL),
-(12, 222333, 'SID009', '2021-07-20 09:53:27', NULL, 0, NULL),
-(13, 222333, 'SID014', '2021-07-21 14:49:46', '2021-07-21 22:00:00', 1, NULL),
-(14, 222333, 'SID017', '2021-07-29 14:14:15', '2021-08-04 22:00:00', 1, NULL),
-(15, 222333, 'SID022', '2021-07-30 07:40:06', NULL, 0, NULL),
-(16, 222333, 'SID001', '2021-08-06 15:20:20', NULL, 0, NULL),
-(17, 222333, 'SID021', '2021-08-06 15:22:22', NULL, 0, NULL);
+(11, 222334, 'SID009', '2021-07-20 08:51:15', NULL, 0, NULL),
+(12, 222334, 'SID009', '2021-07-20 09:53:27', NULL, 0, NULL),
+(13, 222334, 'SID014', '2021-07-21 14:49:46', '2023-03-14 13:03:07', 1, NULL),
+(14, 222334, 'SID017', '2021-07-29 14:14:15', '2023-03-14 13:03:14', 1, NULL),
+(15, 111123, 'SID025', '2021-07-30 07:40:06', NULL, 0, NULL),
+(16, 203735, 'SID025', '2021-08-06 15:20:20', '2023-03-14 10:22:43', 1, NULL),
+(17, 222333, 'SID025', '2021-08-06 15:22:22', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -185,14 +185,15 @@ CREATE TABLE IF NOT EXISTS `tblreaders` (
   `RegDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `UpdateDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `tblreaders`
 --
 
 INSERT INTO `tblreaders` (`id`, `ReaderId`, `FullName`, `EmailId`, `MobileNumber`, `Password`, `Status`, `RegDate`, `UpdateDate`) VALUES
-(11, 'SID025', 'test', 'test@gmail.com', '06060606', '$2y$10$fIgZ28bO4RCAr44wkDC2ReMCeciLqS6c6S52TcpmvmG05Ndw.pt4K', 1, '2023-02-24 08:29:33', NULL);
+(11, 'SID025', 'test', 'test@gmail.com', '0606060606', '$2y$10$4G/Vo7rhWFax7wBhkOA3vuFE74cCpfD4QqkzH2ZkKBkfqGB88zj4S', 1, '2023-02-24 08:29:33', '2023-03-15 14:41:42'),
+(69, 'SID029', 'Lydie', 'lydie@toto.fr', '607080910', '$2y$10$33An0K/mwPhWofJg2PqDouZGv52itbe2lIPf9a1UW/P3vaglqME7i', 1, '2023-03-13 12:31:56', '2023-03-15 12:23:54');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
