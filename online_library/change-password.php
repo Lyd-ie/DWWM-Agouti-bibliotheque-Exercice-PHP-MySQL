@@ -19,6 +19,9 @@ if(strlen($_SESSION['login'])==0) {
 		// On recupere l'email de l'utilisateur dans le tabeau $_SESSION
 		$mail = $_SESSION['login'];
 
+		// On recupere le mot de passe saisi par l'utilisateur et on le crypte (fonction password_hash)
+		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
 		// On construit la requete SQL pour recuperer l'id, le readerId et l'email du lecteur à partir des deux variables ci-dessus dans la table tblreaders
 		$verif = "SELECT * FROM tblreaders WHERE EmailId=:email";
 		$query = $dbh -> prepare($verif);

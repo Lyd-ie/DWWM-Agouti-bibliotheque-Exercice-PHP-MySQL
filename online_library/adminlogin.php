@@ -42,10 +42,10 @@ if (TRUE === isset($_POST['login'])) {
 		if (!empty($result) && password_verify($_POST['password'], $result->Password)) {
 			
 			// On stocke le nom de l'utilisateur $_POST['username'] en session $_SESSION
-			$_SESSION['username'] = $result->UserName;
+			$_SESSION['alogin'] = $result->UserName;
 
 			// On redirige l'utilisateur vers le tableau de bord administration (n'existe pas encore)
-			header('location:admindashboard.php');
+			header('location:admin/dashboard.php');
 
 		} else {
 			// sinon le login est refuse. On le signale par une popup
