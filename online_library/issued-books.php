@@ -61,6 +61,7 @@ if(strlen($_SESSION['login'])==0) {
                 <th>Date de retour</th>
             </tr>
             <?php
+            
                 while ($result = $query->fetch()) {
                     $i++;
                     $returnDate = $result['ReturnDate'];
@@ -69,7 +70,7 @@ if(strlen($_SESSION['login'])==0) {
                     }
             ?>
                 <tr>
-                    <td><?php echo $i; ?></td>
+                    <td><?php echo $i ?></td>
                     <td><?php echo $result['BookName']; ?></td>
                     <td><?php echo $result['BookId']; ?></td>
                     <td><?php echo $result['IssuesDate']; ?></td>
