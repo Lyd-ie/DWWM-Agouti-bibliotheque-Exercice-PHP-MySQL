@@ -15,4 +15,13 @@ catch (PDOException $e)
 	// Echec de la connexion
     exit("Error: " . $e->getMessage());
 }
+
+// Fonction de nettoyage/validation des données
+function valid_donnees($donnees) {
+    $donnees = trim($donnees);
+    $donnees = stripslashes($donnees);
+    $donnees = htmlspecialchars($donnees);
+    // $donnees = !empty($donnees);
+    return $donnees;
+}
 ?>

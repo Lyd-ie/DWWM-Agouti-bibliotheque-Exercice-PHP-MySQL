@@ -66,7 +66,7 @@ if(strlen($_SESSION['login'])==0) {
                     $i++;
                     $returnDate = $result['ReturnDate'];
                     if (!$returnDate) {
-                        $returnDate = 'Non retourné';
+                        $returnDate = '<span style="color:red;">Non retourné</span>';
                     }
             ?>
                 <tr>
@@ -85,11 +85,5 @@ if(strlen($_SESSION['login'])==0) {
     <?php include('includes/footer.php'); ?>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script>
-        const returnDiv = document.querySelector('.return');
-        if (returnDiv.innerHTML = 'Non retourné') {
-            returnDiv.style.color = 'red';
-        }
-    </script> 
 </body>
 </html>

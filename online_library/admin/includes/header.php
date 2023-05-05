@@ -40,10 +40,10 @@
                 </ul>
             </li> 
             <li class="nav-item">
-                <a class="nav-link" href="index.php">LECTEURS</a>
+                <a class="nav-link" href="reg-readers.php">LECTEURS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php">MODIFIER MOT DE PASSE</a>
+                <a class="nav-link" href="change-password.php">MODIFIER MOT DE PASSE</a>
             </li>
         </ul>   
     </div>

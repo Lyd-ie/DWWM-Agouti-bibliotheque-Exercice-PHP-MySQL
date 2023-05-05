@@ -11,5 +11,3 @@ ADMINISTRATION
 URL : “http://localhost/online_library/library/admin”
 Login : admin
 Mot de passe : Test@123
-
-

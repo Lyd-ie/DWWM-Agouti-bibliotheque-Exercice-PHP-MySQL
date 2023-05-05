@@ -63,100 +63,94 @@ if (strlen($_SESSION['alogin']) == 0) {
      // On stocke le résultat dans une variable
 	$result5 = $sql5->fetch();
 ?>
-  <!DOCTYPE html>
-  <html lang="FR">
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Gestion de bibliothèque en ligne | Tab bord administration</title>
-    <!-- BOOTSTRAP CORE STYLE  -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- FONT AWESOME STYLE  -->
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <!-- CUSTOM STYLE  -->
-    <link href="assets/css/style.css" rel="stylesheet" />
-  </head>
+<!DOCTYPE html>
+<html lang="FR">
 
-  <body>
-    <!--On inclue ici le menu de navigation includes/header.php-->
-    <?php include('includes/header.php'); ?>
-    <!-- On affiche le titre de la page : TABLEAU DE BORD ADMINISTRATION-->
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <h3>TABLEAU DE BORD ADMINISTRATION</h3>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Gestion de bibliothèque en ligne | Tab bord administration</title>
+  <!-- BOOTSTRAP CORE STYLE  -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- FONT AWESOME STYLE  -->
+  <link href="assets/css/font-awesome.css" rel="stylesheet" />
+  <!-- CUSTOM STYLE  -->
+  <link href="assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!--On inclue ici le menu de navigation includes/header.php-->
+  <?php include('includes/header.php'); ?>
+  <!-- On affiche le titre de la page : TABLEAU DE BORD ADMINISTRATION-->
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>TABLEAU DE BORD ADMINISTRATION</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3 col-md-3">
+        <!-- On affiche la carte Nombre de livres -->
+        <div class="alert alert-succes text-center">
+          <span class="fa fa-book fa-5x">
+            <h3><?php echo $result[0]; ?></h3>
+          </span>
+          Nombre de livre
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-3 col-md-3">
-          <!-- On affiche la carte Nombre de livres -->
-          <div class="alert alert-succes text-center">
-            <span class="fa fa-book fa-5x">
-              <h3><?php echo $result[0]; ?></h3>
-            </span>
-            Nombre de livre
-          </div>
+      <div class="col-sm-3 col-md-3">
+        <!-- On affiche la carte Livres en pr�t -->
+        <div class="alert alert-succes text-center">
+          <span class="fa fa-book fa-5x">
+            <h3><?php echo $result1[0]; ?></h3>
+          </span>
+          Livres en pret
         </div>
-        <div class="col-sm-3 col-md-3">
-          <!-- On affiche la carte Livres en pr�t -->
-          <div class="alert alert-succes text-center">
-            <span class="fa fa-book fa-5x">
-              <h3><?php echo $result1[0]; ?></h3>
-
-            </span>
-            Livres en pret
-          </div>
+      </div>
+      <div class="col-sm-3 col-md-3">
+        <!-- On affiche la carte Livres retourn�s -->
+        <div class="alert alert-succes text-center">
+          <span class="fa fa-bars fa-5x">
+            <h3><?php echo $result2[0]; ?></h3>
+          </span>
+          Livres retournés
         </div>
-        <div class="col-sm-3 col-md-3">
-          <!-- On affiche la carte Livres retourn�s -->
-          <div class="alert alert-succes text-center">
-            <span class="fa fa-bars fa-5x">
-              <h3><?php echo $result2[0]; ?></h3>
-
-            </span>
-            Livres retournés
-          </div>
+      </div>
+      <div class="col-sm-3 col-md-3">
+        <!-- On affiche la carte Lecteurs -->
+        <div class="alert alert-succes text-center">
+          <span class="fa fa-recycle fa-5x">
+            <h3><?php echo $result3[0]; ?></h3>
+          </span>
+          Lecteurs
         </div>
-        <div class="col-sm-3 col-md-3">
-          <!-- On affiche la carte Lecteurs -->
-          <div class="alert alert-succes text-center">
-            <span class="fa fa-recycle fa-5x">
-              <h3><?php echo $result3[0]; ?></h3>
-
-            </span>
-            Lecteurs
-          </div>
+      </div>
+      <div class="col-sm-3 col-md-3">
+        <!-- On affiche la carte Auteurs -->
+        <div class="alert alert-succes text-center">
+          <span class="fa fa-users fa-5x">
+            <h3><?php echo $result4[0]; ?></h3>
+          </span>
+          Auteurs
         </div>
-        <div class="col-sm-3 col-md-3">
-          <!-- On affiche la carte Auteurs -->
-          <div class="alert alert-succes text-center">
-            <span class="fa fa-users fa-5x">
-              <h3><?php echo $result4[0]; ?></h3>
-
-            </span>
-            Auteurs
-          </div>
-        </div>
-        <div class="col-sm-3 col-md-3">
-          <!-- On affiche la carte Cat�gories -->
-          <div class="alert alert-succes text-center">
-            <span class="fa fa-file-archive-o fa-5x">
-              <h3><?php echo $result5[0]; ?></h3>
-
-            </span>
-            Catégories
-          </div>
-
+      </div>
+      <div class="col-sm-3 col-md-3">
+        <!-- On affiche la carte Cat�gories -->
+        <div class="alert alert-succes text-center">
+          <span class="fa fa-file-archive-o fa-5x">
+            <h3><?php echo $result5[0]; ?></h3>
+          </span>
+          Catégories
         </div>
       </div>
     </div>
-    <!-- CONTENT-WRAPPER SECTION END-->
-    <?php include('includes/footer.php'); ?>
-    <!-- FOOTER SECTION END-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  </body>
-
-  </html>
-<?php } ?>
+  </div>
+  <?php } ?>
+  <!-- CONTENT-WRAPPER SECTION END-->
+  <?php include('includes/footer.php'); ?>
+  <!-- FOOTER SECTION END-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

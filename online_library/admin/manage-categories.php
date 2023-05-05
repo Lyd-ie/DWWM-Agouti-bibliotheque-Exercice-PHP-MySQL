@@ -12,69 +12,84 @@ if (strlen($_SESSION['alogin']) == 0) {
     // L'utilisateur est renvoyé vers la page de login : adminlogin.php
     header('location:../adminlogin.php');
 } else {
-    $i = 0;
 
-    
+    // Affiche une popup avec le message d'ajout de catégorie, si celui-ci a été créé
+    if (!strlen($_SESSION['message']) == 0) {
+        $message = $_SESSION['message'];
+        echo "<script> window.addEventListener('load', () => {
+                alert('" . $message . "');
+                event.preventDefault();
+                })</script>";
+        $_SESSION['message'] = '';
+    }
+
+    // Définit l'indice # du tableau généré
+    $i = (int)0;
+
+    // Requête préparée afin d'afficher les différentes catégories, voir son exécution plus bas
     $tblcategory = "SELECT * FROM tblcategory";
     $query = $dbh->prepare($tblcategory);
+
+    // Lorsque le bouton "Supprimer" servant à désactiver une catégorie est activé
+    if(isset($_GET['supprimer'])) {
+        // On recupere l'identifiant de la catégorie a supprimer
+        $id = valid_donnees($_GET['supprimer']);
+        
+        if (!empty($id)
+        && strlen($id) <= 4
+        && (int)$id) {
+            // Mettra le statut en inactif
+            $newStatus = (int)0;
+            
+            // On prépare la requete de mise à jour du statut de 1 à 0 dans la base de donnée
+            $delete =  "UPDATE tblcategory
+                        SET Status=:status
+                        WHERE id=:id";
+            $query = $dbh->prepare($delete);
+            $query->bindParam(':status', $newStatus, PDO::PARAM_INT);
+            $query->bindParam(':id', $id, PDO::PARAM_INT);
+            
+            // On execute la requete
+            // On informe l'utilisateur du resultat de l'operation
+            // On recharge la page manage-categories.php
+            if ($query->execute() && $query->rowCount() > 0) {
+                $_SESSION['message'] = "Catégorie désactivée";
+                header('location:manage-categories.php');
+            }
+            else {
+                $_SESSION['message'] = "Quelque chose s\'est mal passé";
+                header('location:manage-categories.php');
+            }
+        } else {
+            $_SESSION['message'] = "Quelque chose s\'est mal passé, veuillez réessayer ultérieurement";
+                header('location:manage-categories.php');
+        }
+    }
 }
-
-if(isset($_GET['supprimer'])) {
-    $catSupp = $_GET['supprimer'];
-    $newStatus = "0";
-
-    $tblSupp = "SELECT * FROM tblcategory where CategoryName=:categoryname";
-    $query = $dbh->prepare($tblSupp);
-    $query->bindParam(':categoryname', $catSupp, PDO::PARAM_STR);
-    $query->execute();
-    $result2 = $query->fetch();
-
-    $id = $result2['id'];
-
-    $delete =  "UPDATE tblcategory
-                SET Status=:status
-                WHERE id=:id";
-    $query = $dbh->prepare($delete);
-    $query->bindParam(':status', $newStatus, PDO::PARAM_INT);
-    $query->bindParam(':id', $id, PDO::PARAM_INT);
-    $query->execute();
-    header('location:manage-categories.php');
-}
-
-// On recupere l'identifiant de la catégorie a supprimer
-
-// On prepare la requete de suppression
-
-// On execute la requete
-
-// On informe l'utilisateur du resultat de loperation
-
-// On redirige l'utilisateur vers la page manage-categories.php
-
 ?>
 
 <!DOCTYPE html>
 <html lang="FR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <title>Gestion de bibliothèque en ligne | Gestion categories</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- FONT AWESOME STYLE  -->
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
     <!-- CUSTOM STYLE  -->
-    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
     <!------MENU SECTION START-->
     <?php include('includes/header.php'); ?>
     <!-- MENU SECTION END-->
-    <!-- On affiche le titre de la page-->
 
+    <!-- On affiche le titre de la page-->
     <div class="container">
         <div class="row">
             <div class="col">
@@ -82,7 +97,7 @@ if(isset($_GET['supprimer'])) {
             </div>
         </div>
     </div>
-    <!-- On affiche la liste des sorties contenus dans $results sous la forme d'un tableau -->
+    <!-- On affiche la liste des sorties contenus dans $result sous la forme d'un tableau -->
     <table class="container">
         <tbody>
             <tr>
@@ -94,40 +109,35 @@ if(isset($_GET['supprimer'])) {
                 <th>Action</th>
             </tr>
             <?php
+                // Exécute la requête
                 $query->execute();
+                // Affiche une ligne pour chaque résultat trouvé
                 while ($result = $query->fetch()) {
+
+                    //  L'indice de la colonne # s'incrémente de 1 à chaque ligne
                     $i++;
 
-                    // var_dump($result);
-
-                    if ($result['Status'] == "1") {
+                    // Change le résultat de $result['Status'] en "Actif" ou "Inactif"
+                    if ($result['Status'] == (int)1) {
                         $result['Status'] = "<span style='color:white; background-color:#62bf52; padding:3px 6px; border-radius:5px;'>Active</span>";
                     } else {
                         $result['Status'] = "<span style='color:white; background-color:#e53947; padding:3px 6px; border-radius:5px;'>Inactive</span>";
                     }
             ?>
-                <tr>
-                    <td><?php echo $i; ?></td>
-                    <td><?php echo $result['CategoryName']; ?></td>
-                    <td><?php echo $result['Status']; ?></td>
-                    <td><?php echo $result['CreationDate']; ?></td>
-                    <td><?php echo $result['UpdationDate']; ?></td>
-                    <td> 
-                        <a href="edit-category.php?editer=<?php echo $result['CategoryName'] ?>"> <button class="btn btn-info">Editer</button></a>
-                        <a href="manage-categories.php?supprimer=<?php echo $result['CategoryName'] ?>"> <button class="btn btn-danger">Supprimer</button></a>
-                    </td>
-                </tr>                
-            <?php
-                }
-            ?>
+            <tr>
+                <td><?php echo $i; ?></td>
+                <td><?php echo $result['CategoryName']; ?></td>
+                <td><?php echo $result['Status']; ?></td>
+                <td><?php echo $result['CreationDate']; ?></td>
+                <td><?php echo $result['UpdationDate']; ?></td>
+                <td>
+                    <button class="btn btn-info" onclick="window.location.href='edit-category.php?editer=<?php echo (int)$result['id'] ?>'">Editer</button>
+                    <button class="btn btn-danger" onclick="window.location.href='manage-categories.php?supprimer=<?php echo (int)$result['id'] ?>'">Supprimer</button>
+                </td>
+            </tr>                
+            <?php } ?>
         </tbody>
     </table>
-
-    <!-- On prevoit ici une div pour l'affichage des erreurs ou du succes de l'operation de mise a jour ou de suppression d'une categorie-->
-
-    <!-- On affiche le formulaire de gestion des categories-->
-
-    </div>
 
     <!-- CONTENT-WRAPPER SECTION END-->
     <?php include('includes/footer.php'); ?>
@@ -135,5 +145,4 @@ if(isset($_GET['supprimer'])) {
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
-
 </html>
