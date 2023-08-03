@@ -99,7 +99,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         <div>
             <div class="form-group">
               <p>Titre<span style="color:red;">*</span></p>
-              <input type="text" name="title" maxlength="30" pattern="^[A-Za-zÀ-ÿ0-9 '-]+$" required>
+              <input type="text" name="title" maxlength="50" pattern="^[A-Za-z0-9]+$" required>
             </div>
 
             <div class="form-group">
